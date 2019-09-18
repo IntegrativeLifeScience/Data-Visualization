@@ -1,0 +1,123 @@
+## TEST DATA - file name & details
+## Labels (Title, X & Y axis), default = ""
+#Title Main	this is only a test
+#X Leg	Hours
+#Y Leg	meh
+####
+## Set the size of the labels, the distance between the axis labels and the values & the axis value size
+## DEF: "Title Size:32", "Axis Label Size:26", "Axis Label Sep:20", "Axis Value Size: 26"
+####
+## Set the size of the y axis and the interval
+#Y Max	60000
+#Y Interval	10000
+####
+## "Y Value Rig:FALSE" -> manipulate the y-axis labels (0 or FALSE = no change; SCI = use scientific notation; # = divide all data by #  incl axis values -> make note on axis label!)
+## "Y Value Rig Newline:FALSE" -> newline between Y Leg and rigging note
+#Y Value Rig	1000
+## "X Value Angle:45" -> Set the angle for X axis values (0 = no rotation, number = degree rotation)
+#X Value Angle	0
+## "Coord Fixed Ratio:SQUARE" -> Coordinate ratio (FALSE: disabled, SQUARE: 1/(Y Max / # of X Groups)
+#Coord Fixed Ratio	FALSE
+##     Manually enter ratio (eg 1/2, 1/3): ratio (x/y) uses the Y Max and number of X GROUPS) largely overwritten by ggsave function
+## "HLine:#" -> set a horizontal line at # on the figure
+####
+## Colors list can handle "," and " " when splitting
+#Colors	#FFFFFF, #000000, #606060, #00c000, #f71480, #0000ff, #ff0000, #000000, #606060, #00c000, #f71480, #0000ff, #ff0000
+####
+## Stats Labels: Stat offset (FALSE: default value is guessed for a Letter Size of 12, Y Max value & image export of 1800x935; override with a number)
+## DEF: "Stat Offset:FALSE", "Stat Letter Size:18", "Stat Caption Display:TRUE", "Stat Caption Size:6"
+####
+## "Stats Test:ANOVA" -> what type of primary test to carry out (ANOVA, TTest, PTTest), a combination is possible (use multiple lines)
+## ANOVA = ANOVA w/ Tukeys Post Hoc Test; TTest = unpaired TTest; PTTest = Wilcoxen Paired TTest
+#Stats Test	ANOVA
+#Stats Test	STTest
+##Stats Test	PTTest
+## "Stats Post Test:Tukeys" -> the post hoc test to run ** IN PLANNING - currently ALL are Tukeys... **
+## the comparisons -> in Group1_Group2 format, final is symbol that is placed over group in second position (make sure Group1 is dropped group)
+## final col is optional & determines tails (two.sided, greater, less) compares Group1 greater/less than Group1, two.sided is default
+## IF data is being separated based on group2 - make sure that the group1_group2 comparisons are within the same group2...
+#Stats STTest Pairs	0_NC	0_122	!
+#Stats STTest Pairs	12_NC	12_122	@
+#Stats STTest Pairs	24_NC	24_122	#
+#Stats STTest Pairs	36_NC	36_122	$
+#Stats STTest Pairs	48_NC	48_122	%
+## STTest combinations
+##Stats STTest Pairs	NT_24	22_24	a
+##Stats STTest Pairs	NT_24	122_24	b
+####
+## "Stats Transform:TreatmentControl:Group1:Group2" -> the transformation to carry out (eg treatment over control) followed by group1 & group2 to use as control 
+## will be used to normalize all other groups and will be removed from the figure, a line will be automatically added at '1' for this group
+## ANOVA (if requested) will be run post transform & group removal; in order to remove a group (treatment) "Stats Anova Group2" MUST be set to FALSE!
+## "Stats Transform:TimeCourse" -> group1 defines the time points; groupt 2 the control & treatment/s 
+#Stats Transform	TimeCourse
+## "Stats Outlier:ONE" -> Outlier detection - (FALSE, ONE, TWO) false: no detection; one: one tailed; two: two tailed (careful when using paired t-tests)
+####
+## "Stats Anova Group2:FALSE" -> how are the groups compared for the ANOVA test?
+## TRUE: compare only within each group2 & include borders around each; FALSE: compare between all the group2's [a unique Group1_Group2 id is always generated]
+#Stats Anova Group2	FALSE
+## "Facet Split:TRUE" -> Should the figure be split into multiple ones based on the Group2?
+## True includes the Group2 value as a header above the figure / section of the figure
+#Facet Split	FALSE
+####
+## Make sure that Group1 has adequate labels to distinguish any repeats in Group2...
+Value	Group1	Group2
+32591	0	NC
+28674	0	NC
+31800	0	NC
+26855	0	NC
+26309	0	NC
+29670	0	NC
+31662	0	122
+31839	0	122
+34580	0	122
+36213	0	122
+31956	0	122
+34594	0	122
+24157	12	NC
+22145	12	NC
+20263	12	NC
+22252	12	NC
+22170	12	NC
+33023	12	NC
+34622	12	122
+33336	12	122
+42695	12	122
+33230	12	122
+41464	12	122
+41345	12	122
+29668	24	NC
+29119	24	NC
+28257	24	NC
+27067	24	NC
+30914	24	NC
+32945	24	NC
+41874	24	122
+43080	24	122
+69880	24	122
+63049	24	122
+49730	24	122
+38010	24	122
+33784	36	NC
+26260	36	NC
+28364	36	NC
+24102	36	NC
+25791	36	NC
+20705	36	NC
+18705	36	122
+21929	36	122
+22918	36	122
+25597	36	122
+20237	36	122
+20556	36	122
+24934	48	NC
+21088	48	NC
+20871	48	NC
+21541	48	NC
+30992	48	NC
+26776	48	NC
+14769	48	122
+15128	48	122
+25856	48	122
+19878	48	122
+20633	48	122
+16773	48	122
