@@ -1,0 +1,117 @@
+## TEST DATA - file name & details
+################ OVERRIDE? ################
+## !! OVERRIDE MUST BE AT THE TOP OF THE DATA FILE !!
+## Ability to save the optional (OPT) headed data for subsequent data files - makes consistent style formatting easier when making multiple figures
+## Override -> (TRUE: store the OPT values from this file until another TRUE is encountered; FALSE: turn override off and clear out the stored values)
+## DEF "Override:''" 
+################ Label Size and Appearance (OPT) ################
+## Set the size of the labels, the distance between the axis labels and the values & the axis value size
+## Text Convert -> scan the title & axis for html codes and convert to unicode; Text Font -> select a font
+## Conversion: (&Alpha; &Sigma; &alpha; &beta; &epsilon; &pi; &sigma; &bull; &isin; &radic; &micro; \n); Fonts: (mono, sans, serif)
+## DEF: "Title Size:32"; "Axis Label Size:26"; "Axis Label Sep:20"; "Axis Value Size: 26"; "Text Convert:TRUE"; "Text Font:sans"
+################ Display of the Axis & Plot (OPT) ################
+## X Value Angle -> Set the angle for X axis values (0 = no rotation, number = degree rotation)
+## Coord Fixed Ratio -> Coordinate ratio or manual (FALSE: disabled, SQUARE: 1/(Y Max / # of X Groups), NUM: [eg 1/2, 1/3])
+## DEF: "X Value Angle:45"; "Coord Fixed Ratio:SQUARE"
+################ Colors and Display Individual Points (OPT) ################
+## Colors -> list of colors in html format, can handle "," and " " when splitting
+## Scatter Display -> display individual data points as gold stars
+## DEF: "Colors:''"; "Scatter Display:TRUE"
+#Colors	#606060, #00c000, #f71480, #0000ff, #ff0000, #000000, #606060, #00c000, #f71480, #0000ff, #ff0000
+################ Stats Labels (OPT) ################
+## Stat offset -> distance above figure bars (FALSE: default value is guessed for a Letter Size of 12, Y Max value & image export of 1800x935; override with a number)
+## Stat Letter Size -> font size of letters; Stat Caption Display -> display the caption (TRUE or FALSE); Stat Caption Size -> font size of caption
+## DEF: "Stat Offset:FALSE"; "Stat Letter Size:18"; "Stat Caption Display:TRUE"; "Stat Caption Size:6"
+################ Title & Axis Labels (REQ) ################
+## Title, X and Y axis text
+## DEF ("Title Main", "X Leg", "Y Leg"): ""
+#Title Main	only A test\n&pi;~&isin;~&infin;~&asymp;~&notin;~&bull;~&epsilon;
+#X Leg	miRNA
+#Y Leg	meh (&alpha;~&beta;~&Beta;~&micro;)
+################ Height of Y-axis and Horizontal Line/s (REQ) ################
+## Set the size of the y axis and the interval and if there are any black horizontal lines (HLine accepts csv list eg 4,8)
+## DEF: ("Y Max", "Y Interval"): ""; "HLine:FALSE"
+#Y Max	2.5
+#Y Interval	0.5
+################ Alter the Axis (REQ) ################
+## Y Value Rig -> manipulate the y-axis labels (0 or FALSE = no change; SCI = use scientific notation; # = divide all data by #  incl axis values -> make note on axis label!)
+## Y Value Rig Newline -> newline between Y Leg and rigging note (TRUE or FALSE)
+## DEF: "Y Value Rig:FALSE"; "Y Value Rig Newline:FALSE";
+################ Stats Tests (REQ) ################
+## "Stats Post Test:Tukeys" -> the post hoc test to run ** IN PLANNING - currently ALL are Tukeys... **
+## Stats Test -> what type of primary test to carry out (ANOVA, TTest, PTTest), a combination is possible (use multiple lines)
+## TTest Comparison Format -> Group1_Group2:Group1_Group2:Symbol:Tails
+## First group is compared to group, symbol is placed over second group, Tails is optional that determines tails test (two.sided, greater, less) DEF:two.sided
+## !! IF data is being separated based on group2 - make sure that the group1_group2 comparisons are within the same group2 !!
+## DEF: "Stats Test":'' (ANOVA = ANOVA w/ Tukeys Post Hoc Test; STTest = unpaired TTest; PTTest = Wilcoxen Paired TTest)
+#Stats Test	ANOVA
+#Stats Test	PTTest	NT_48hrs	NC_48hrs	!	greater
+#Stats Test	PTTest	NT_48hrs	22_48hrs	^	greater
+#Stats Test	PTTest	NT_48hrs	122_48hrs	&
+#Stats Test	PTTest	NT_48hrs	223_48hrs	*
+#Stats Test	PTTest	NT_48hrs	451_48hrs	(
+################ Stats Transformation or Outlier (REQ) ################
+## "Stats Transform:FALSE" -> no transformation
+## "Stats Transform:TreatmentControl:Group1:Group2" -> define control group: Group1 required, Group2 required if using 2 groups 
+## 	control group will be used to normalize all other groups and will be removed from the figure, a line will be automatically added at '1' for this group
+## 	ANOVA (if requested) will be run post transform & group removal; in order to remove a group (treatment) "Stats Anova Group2" MUST be set to FALSE!
+## "Stats Transform:TimeCourse" -> group1 defines the time points; group 2 the control & treatment/s 
+## Stats Outlier -> Outlier detection (FALSE, ONE, TWO) FALSE: no detection; ONE: one tailed; TWO: two tailed (careful when using paired t-tests)
+## DEF: "Stats Transform:FALSE"; "Stats Outlier:ONE"
+#Stats Transform	TreatmentControl	NT	48hrs
+#Stats Outlier	FALSE
+################ Split on Group 2? (REQ) ################
+## Stats Anova Group2  -> TRUE: compare only within each group2 & include borders around each; FALSE: compare between all the group2's [a unique Group1_Group2 id is always generated]
+## Facet Split -> Group2 based header & border (TRUE: Group2 value as a header above the section of the figure [!! incompatible with "Stats Transform:TimeCourse" !!]; FALSE: no Group2 header)
+## DEF: "Stats Anova Group2:FALSE"; "Facet Split:TRUE"
+################ DATA (REQ) ################
+## Make sure that Group1 has adequate labels to distinguish any repeats in Group2...
+Value	Group1	Group2
+0.231076833	NT	48hrs
+0.218498867	NT	48hrs
+0.083387	NT	48hrs
+2.470833333	NT	48hrs
+0.1105	NT	48hrs
+0.095833333	NT	48hrs
+2.219166667	NT	48hrs
+4.08	NT	48hrs
+0.193122833	NC	48hrs
+0.157834333	NC	48hrs
+0.065521833	NC	48hrs
+3.177777778	NC	48hrs
+0.064166667	NC	48hrs
+0.060333333	NC	48hrs
+2.1225	NC	48hrs
+4.995	NC	48hrs
+0.177043	22	48hrs
+0.15057	22	48hrs
+0.080694833	22	48hrs
+2.323611111	22	48hrs
+0.0685	22	48hrs
+0.063333333	22	48hrs
+2.128333333	22	48hrs
+3.395	22	48hrs
+0.369378	122	48hrs
+0.359659167	122	48hrs
+0.1690745	122	48hrs
+5.348611111	122	48hrs
+0.093666667	122	48hrs
+0.096666667	122	48hrs
+3.041666667	122	48hrs
+8.056666667	122	48hrs
+0.205808667	223	48hrs
+0.207266667	223	48hrs
+0.1018265	223	48hrs
+2.868055556	223	48hrs
+0.078	223	48hrs
+0.071666667	223	48hrs
+2.3825	223	48hrs
+4.051666667	223	48hrs
+0.193819333	451	48hrs
+0.195644167	451	48hrs
+0.116819667	451	48hrs
+3.706944444	451	48hrs
+0.071833333	451	48hrs
+0.053	451	48hrs
+2.024166667	451	48hrs
+4.901666667	451	48hrs

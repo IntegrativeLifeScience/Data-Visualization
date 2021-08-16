@@ -1,0 +1,134 @@
+## TEST DATA - file name & details
+################ OVERRIDE? ################
+## !! OVERRIDE MUST BE AT THE TOP OF THE DATA FILE !!
+## Ability to save the optional (OPT) headed data for subsequent data files - makes consistent style formatting easier when making multiple figures
+## Override -> (TRUE: store the OPT values from this file until another TRUE is encountered; FALSE: turn override off and clear out the stored values)
+## DEF "Override:''" 
+################ Label Size and Appearance (OPT) ################
+## Set the size of the labels, the distance between the axis labels and the values & the axis value size
+## Text Convert -> scan the title & axis for html codes and convert to unicode; Text Font -> select a font
+## Conversion: (&Alpha; &Sigma; &alpha; &beta; &epsilon; &pi; &sigma; &bull; &isin; &radic; &micro; \n); Fonts: (mono, sans, serif)
+## DEF: "Title Size:32"; "Axis Label Size:26"; "Axis Label Sep:20"; "Axis Value Size: 26"; "Text Convert:TRUE"; "Text Font:sans"
+################ Display of the Axis & Plot (OPT) ################
+## X Value Angle -> Set the angle for X axis values (0 = no rotation, number = degree rotation)
+## Coord Fixed Ratio -> Coordinate ratio or manual (FALSE: disabled, SQUARE: 1/(Y Max / # of X Groups), NUM: [eg 1/2, 1/3])
+## DEF: "X Value Angle:45"; "Coord Fixed Ratio:SQUARE"
+#X Value Angle	0
+#Coord Fixed Ratio	FALSE
+################ Colors and Display Individual Points (OPT) ################
+## Colors -> list of colors in html format, can handle "," and " " when splitting
+## Scatter Display -> display individual data points as gold stars
+## DEF: "Colors:''"; "Scatter Display:TRUE"
+#Colors	#000000, #606060, #00c000, #f71480, #0000ff, #ff0000, #000000, #606060, #00c000, #f71480, #0000ff, #ff0000
+################ Stats Labels (OPT) ################
+## Stat offset -> distance above figure bars (FALSE: default value is guessed for a Letter Size of 12, Y Max value & image export of 1800x935; override with a number)
+## Stat Letter Size -> font size of letters; Stat Caption Display -> display the caption (TRUE or FALSE); Stat Caption Size -> font size of caption
+## DEF: "Stat Offset:FALSE"; "Stat Letter Size:18"; "Stat Caption Display:TRUE"; "Stat Caption Size:6"
+################ Title & Axis Labels (REQ) ################
+## Title, X and Y axis text
+## DEF ("Title Main", "X Leg", "Y Leg"): ""
+#Title Main	timecourse TEST\n&Alpha; &Sigma; &alpha; &beta; &epsilon; &pi; &sigma; &bull; &isin; &notin; &radic; &micro;
+#X Leg	&Alpha;~&Beta;~&Gamma;~&Delta;~&Epsilon;~&Pi;~&Sigma;~&Tau;~&Phi;~&Omega;~&alpha;~&beta;~&gamma;~&delta;~&epsilon;~&pi;~&sigma;~&tau;~&phi;~&omega;~&bull;~&isin;~&notin;~&radic;~&infin;~&asymp;~&micro;
+#Y Leg	meh (&alpha;~&beta;~&micro;)
+################ Height of Y-axis and Horizontal Line/s (REQ) ################
+## Set the size of the y axis and the interval and if there are any black horizontal lines (HLine accepts csv list eg 4,8)
+## DEF: ("Y Max", "Y Interval"): ""; "HLine:FALSE"
+#Y Max	75000
+#Y Interval	10000
+#HLine	8500,4250
+################ Alter the Axis (REQ) ################
+## Y Value Rig -> manipulate the y-axis labels (0 or FALSE = no change; SCI = use scientific notation; # = divide all data by #  incl axis values -> make note on axis label!)
+## Y Value Rig Newline -> newline between Y Leg and rigging note (TRUE or FALSE) - can impact yaxis display!
+## DEF: "Y Value Rig:FALSE"; "Y Value Rig Newline:FALSE";
+#Y Value Rig	1000
+#Y Value Rig Newline	TRUE
+################ Stats Tests (REQ) ################
+## "Stats Post Test:Tukeys" -> the post hoc test to run ** IN PLANNING - currently ALL are Tukeys... **
+## Stats Test -> what type of primary test to carry out (ANOVA, TTest, PTTest), a combination is possible (use multiple lines)
+## TTest Comparison Format -> Group1_Group2:Group1_Group2:Symbol:Tails
+## First group is compared to group, symbol is placed over second group, Tails is optional that determines tails test (two.sided, greater, less) DEF:two.sided
+## !! IF data is being separated based on group2 - make sure that the group1_group2 comparisons are within the same group2 !!
+## DEF: "Stats Test":'' (ANOVA = ANOVA w/ Tukeys Post Hoc Test; STTest = unpaired TTest; PTTest = Wilcoxen Paired TTest)
+#Stats Test	ANOVA
+#Stats Test	STTest 	0_NC	0_122	!
+#Stats Test	STTest 	12_NC	12_122	@
+#Stats Test	STTest 	24_NC	24_122	#
+#Stats Test	STTest 	36_NC	36_122	$
+#Stats Test	STTest 	48_NC	48_122	%
+################ Stats Transformation or Outlier (REQ) ################
+## "Stats Transform:FALSE" -> no transformation
+## "Stats Transform:TreatmentControl:Group1:Group2" -> define control group: Group1 required, Group2 required if using 2 groups 
+## 	control group will be used to normalize all other groups and will be removed from the figure, a line will be automatically added at '1' for this group
+## 	ANOVA (if requested) will be run post transform & group removal; in order to remove a group (treatment) "Stats Anova Group2" MUST be set to FALSE!
+## "Stats Transform:TimeCourse" -> group1 defines the time points; group 2 the control & treatment/s 
+## Stats Outlier -> Outlier detection (FALSE, ONE, TWO) FALSE: no detection; ONE: one tailed; TWO: two tailed (careful when using paired t-tests)
+## DEF: "Stats Transform:FALSE"; "Stats Outlier:ONE"
+#Stats Transform	TimeCourse
+################ Split on Group 2? (REQ) ################
+## Stats Anova Group2  -> TRUE: compare only within each group2 & include borders around each; FALSE: compare between all the group2's [a unique Group1_Group2 id is always generated]
+## Facet Split -> Group2 based header & border (TRUE: Group2 value as a header above the section of the figure [!! incompatible with "Stats Transform:TimeCourse" !!]; FALSE: no Group2 header)
+## DEF: "Stats Anova Group2:FALSE"; "Facet Split:TRUE"
+#Facet Split	FALSE
+################ DATA (REQ) ################
+## Make sure that Group1 has adequate labels to distinguish any repeats in Group2...
+Value	Group1	Group2
+32591	0	NC
+28674	0	NC
+31800	0	NC
+26855	0	NC
+26309	0	NC
+29670	0	NC
+31662	0	122
+31839	0	122
+34580	0	122
+36213	0	122
+31956	0	122
+34594	0	122
+24157	12	NC
+22145	12	NC
+20263	12	NC
+22252	12	NC
+22170	12	NC
+33023	12	NC
+34622	12	122
+33336	12	122
+42695	12	122
+33230	12	122
+41464	12	122
+41345	12	122
+29668	24	NC
+29119	24	NC
+28257	24	NC
+27067	24	NC
+30914	24	NC
+32945	24	NC
+41874	24	122
+43080	24	122
+69880	24	122
+63049	24	122
+49730	24	122
+38010	24	122
+33784	36	NC
+26260	36	NC
+28364	36	NC
+24102	36	NC
+25791	36	NC
+20705	36	NC
+18705	36	122
+21929	36	122
+22918	36	122
+25597	36	122
+20237	36	122
+20556	36	122
+24934	48	NC
+21088	48	NC
+20871	48	NC
+21541	48	NC
+30992	48	NC
+26776	48	NC
+14769	48	122
+15128	48	122
+25856	48	122
+19878	48	122
+20633	48	122
+16773	48	122
