@@ -24,6 +24,10 @@
 ## Stat offset -> distance above figure bars (FALSE: default value is guessed for a Letter Size of 12, Y Max value & image export of 1800x935; override with a number)
 ## Stat Letter Size -> font size of letters; Stat Caption Display -> display the caption (TRUE or FALSE); Stat Caption Size -> font size of caption
 ## DEF: "Stat Offset:FALSE"; "Stat Letter Size:18"; "Stat Caption Display:TRUE"; "Stat Caption Size:6"
+################ Figure Save (OPT) ################
+## Specify the image details for the export (dpi, size, type)
+## Save Units -> ("in", "cm", "mm", "px"); Save Type -> ("eps", "ps", "tex", "pdf", "jpg", "jpeg", "tiff", "png", "bmp", "svg", "wmf")
+## DEF: "Save Width:8"; "Save Height:8.5"; "Save DPI: 320"; "Save Units:in"; "Save Type:jpg"
 ################ Title & Axis Labels (REQ) ################
 ## Title, X and Y axis text
 ## DEF ("Title Main", "X Leg", "Y Leg"): ""
