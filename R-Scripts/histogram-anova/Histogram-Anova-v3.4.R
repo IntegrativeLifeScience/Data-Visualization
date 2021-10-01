@@ -74,8 +74,8 @@ library(magrittr)
 # - Ability to have individual data points to histogram
 # - Incorporate multiple HLine's (split up a comma string)
 # - handle special characters in the config file for titles
-# - Option for 'global settings' function that allows one to over-ride numerous settings for batch figure generation
-#
+# - option for 'global settings' function that allows one to over-ride numerous settings for batch figure generation
+# - options to specify saved file sizes and dimensions
 # To Do:
 # - include option for other post hoc tests
 # - special characters in the legends & title are buggy - sometimes unicode doesn't display correctly:
@@ -119,6 +119,13 @@ init_vars <- function() {
     assign("Stats.Letters.Size", 18, envir = .GlobalEnv)
     assign("Stats.Caption.Display", TRUE, envir = .GlobalEnv)  
     assign("Stats.Caption.Size", 6, envir = .GlobalEnv)
+    
+    ################ Figure Save (OPT) ################
+    assign("Fig.Save.Width", 8, envir = .GlobalEnv)
+    assign("Fig.Save.Height", 8.5, envir = .GlobalEnv)
+    assign("Fig.Save.DPI", 320, envir = .GlobalEnv)
+    assign("Fig.Save.Units", "in", envir = .GlobalEnv)
+    assign("Fig.Save.Type", "jpg", envir = .GlobalEnv)
   }
 
   ################ Title & Axis Labels (REQ) ################
@@ -280,6 +287,18 @@ load_file_head = function() {
         else { assign("Stats.Caption.Display", TRUE, envir = .GlobalEnv) }
       }
       else if (lA[[1]][1] == "Stat Caption Size") { assign("Stats.Caption.Size", as.numeric(lA[[1]][2]), envir = .GlobalEnv) }
+      ################ Figure Save (OPT) ################
+      else if (lA[[1]][1] == "Save Width") { assign("Fig.Save.Width", as.numeric(lA[[1]][2]), envir = .GlobalEnv) }
+      else if (lA[[1]][1] == "Save Height") { assign("Fig.Save.Height", as.numeric(lA[[1]][2]), envir = .GlobalEnv) }
+      else if (lA[[1]][1] == "Save DPI") { assign("Fig.Save.DPI", as.numeric(lA[[1]][2]), envir = .GlobalEnv) }
+      else if (lA[[1]][1] == "Save Units") { 
+        if (tolower(lA[[1]][2]) %in% c("in", "cm", "mm", "px")) { assign("Fig.Save.Units", tolower(lA[[1]][2]), envir = .GlobalEnv) }
+        else { assign("Fig.Save.Units", "in", envir = .GlobalEnv) }
+      }
+      else if (lA[[1]][1] == "Save Type") { 
+        if (tolower(lA[[1]][2]) %in% c("eps", "ps", "tex", "pdf", "jpg", "jpeg", "tiff", "png", "bmp", "svg", "wmf")) { assign("Fig.Save.Type", tolower(lA[[1]][2]), envir = .GlobalEnv) }
+        else { assign("Fig.Save.Type", "jpg", envir = .GlobalEnv) }
+      }
     }
 
     ################ Title & Axis Labels (REQ) ################
@@ -1303,7 +1322,7 @@ generate_figure <- function() {
   Location.image = sub("txt", "jpg", Location.file)
   message(sprintf("saving your new figure to: \'%s\'", Location.image))
   message("-------- SAVE Histogram --------")
-  ggsave(Location.image, width = 8, height = 8.5, dpi = 800, units = "in", device = "jpg")
+  ggsave(Location.image, width = Fig.Save.Width, height = Fig.Save.Height, dpi = Fig.Save.DPI, units = Fig.Save.Units, device = Fig.Save.Type)
   message("----------------  ----------------  ----------------")
 }
 #
